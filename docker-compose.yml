@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    build: ./web
+    image: pbot-web:latest
+    ports:
+      - "80:4000"
+      - "9222:9222"
+    environment:
+      - PORT=4000
+      - DEBUG=*,-web:*
+      - NODE_ENV=development
+    volumes:
+      - ./web/src:/www/src
+      - ./data:/www/data
+    command: /www/node_modules/.bin/nodemon --watch src/ --inspect-brk=0.0.0.0:9222 --nolazy src/app.js
+  mongo:
+    image: mongo:4-xenial
+    restart: always
+    expose:
+      - '27017'
+    command: '--smallfiles'
+    volumes:
+      - ./db:/data/db

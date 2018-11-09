@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+{{#if user}}
+<p>You are currently logged in as {{user.username}}</p>
+<p>Your account was created at {{user.createdAt}}</p>
+<p>Your account was updated at {{user.updatedAt}}</p>
+<a href="/logout">Logout</a>
+{{else}}
+<a href="/login">Login</a>
+<br/>
+<a href="/register">Register</a>
+{{/if}}
