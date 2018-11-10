@@ -6,7 +6,6 @@ ENTRYPOINT ["/sbin/tini", "--"]
 
 RUN mkdir /www
 WORKDIR /www
-RUN chown -R root:node /www
 
 FROM base as builder
 
