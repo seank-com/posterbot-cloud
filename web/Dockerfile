@@ -16,7 +16,6 @@ RUN npm install
 
 COPY src/ src/
 
-
 FROM base AS release
 
 COPY --from=builder /www .
@@ -30,4 +29,4 @@ EXPOSE 4000
 
 USER node
 
-CMD ["node", "src/app.js`"]
+CMD ["node", "src/app.js"]

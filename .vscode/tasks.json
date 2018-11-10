@@ -11,7 +11,7 @@
             "options": {
                 "cwd": "${workspaceRoot}/web/"
             },
-            "args": ["-f", "../docker-compose.yml", "up", "--detach"],
+            "args": ["-f", "../docker-compose.debug.yml", "up", "--detach"],
             "problemMatcher": []
         },
         {
@@ -22,7 +22,7 @@
             "options": {
                 "cwd": "${workspaceRoot}/web/"
             },
-            "args": ["-f", "../docker-compose.yml", "down"],
+            "args": ["-f", "../docker-compose.debug.yml", "down"],
             "problemMatcher": []
         },
         {
