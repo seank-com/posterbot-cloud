@@ -29,22 +29,38 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// configure middleware
+// setup favicon before logging so that 
+// we don't fill our logs with useless data
 app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// verbose logging
 app.use(logger(':remote-addr :remote-user [:date[iso]] :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'));
+
+// setup body-parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// cookies are used to remember who is logged in
 app.use(cookieSession({
   name: 'session',
   keys: ["boofoowho"],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
+// configure auth
 app.use(passport.initialize());
 app.use(passport.session());
+
+// static file support
 app.use(express.static(path.join(__dirname, 'public')));
+
+// mime upload support
 app.use(busboy());
+
+// flash messaging
 app.use(flash());
 
+// Setup Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -73,10 +89,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
+// Normalize a port into a number, string, or false.
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -93,10 +106,7 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
+// Event listener for HTTP server "error" event.
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -121,9 +131,7 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+// Event listener for HTTP server "listening" event.
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
@@ -132,29 +140,21 @@ function onListening() {
   debugHttp('Listening on ' + bind);
 }
 
-/**
- * Get port from environment and store in Express.
- */
-
+// Get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
+// Create HTTP server.
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+// connect to database, we are nothing without data
 database.init((err) => {
   if (err) {
     debugApp('database connection failed ');
     console.error(err);
     process.exit(1);
   } else {
+    // Listen on provided port, on all network interfaces.
     debugApp('starting server');
     server.listen(port);
     server.on('error', onError);
@@ -162,6 +162,8 @@ database.init((err) => {
   }
 });
 
+// docker send a SIGTERM for graceful shutdown, 
+// lets atleast try to be a good citizen.
 process.on('SIGTERM', () => {
   database.close(()=> {
     debugApp('exiting process');
