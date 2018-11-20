@@ -1,0 +1,30 @@
+/*!
+ *   Styles
+ *   License: Open source - MIT
+ *           Please visit http://opensource.org/licenses/MIT for more information
+ */
+ .user-image {
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  margin-right:5px;
+  margin-top:-2px
+}
+
+.avatar {
+  float:left;
+  width: 160px;
+  height: 64px;
+}
+
+.error-msg {
+  padding-right: 5px;
+}
+
+.sneaky {
+  visibility: hidden;
+}
+
+.table tr:hover .sneaky {
+  visibility: visible;
+}

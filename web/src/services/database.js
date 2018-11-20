@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var debug = require('debug')('db');
 
-var Account = require('../models/account');
+var User = require('../models/user');
 
 const server = 'mongo:27017';
 const database = 'posterbot';
@@ -21,34 +21,40 @@ var options = {
   // will wait before failing its initial connection attempt. 
 };
 
-function addAdminAccount(callback) {
-  var account = new Account({username: 'admin'});
-  account.setPassword('letmein', function (err, result) {
+function addAdmin(callback) {
+  var user = new User({
+      username: 'admin',
+      fullname: 'Administrator',
+      jobtitle: 'Digital Slave',
+      avatar: 'robot'
+    });
+    
+  user.setPassword('letmein', function (err, result) {
     if (err) {
-      debug('addAdminAccount - setPassword failed with ' + JSON.stringify(err));
+      debug('addAdmin - setPassword failed with ' + JSON.stringify(err));
       return callback(err);
     }
-    account.save(function (err) {
+    user.save(function (err) {
       if (err) {
-        debug('addAdminAccount - save failed with ' + JSON.stringify(err));
+        debug('addAdmin - save failed with ' + JSON.stringify(err));
       }
-      debug('addAdminAccount - calling callback');
+      debug('addAdmin - calling callback');
       return callback(err);
-    })
+    });
   });
 
 }
 
-function ensureAdminAccount(callback) {
-  Account.findOne({username: 'admin'}, (err, account) => {
+function ensureAdmin(callback) {
+  User.findOne({username: 'admin'}, (err, user) => {
     if (err) {
-      debug('ensureAdminAccount - findOne failed with ' + JSON.stringify(err));
+      debug('ensureAdmin - findOne failed with ' + JSON.stringify(err));
       return callback(err);
     }
-    if (!account) {
-      addAdminAccount(callback);
+    if (!user) {
+      addAdmin(callback);
     } else {
-      debug('ensureAdminAccount - found admin ' + JSON.stringify(account));
+      debug('ensureAdmin - found admin ' + JSON.stringify(user));
       return callback(null);
     }
   });
@@ -94,7 +100,7 @@ module.exports.init = function(callback) {
       debug('event error ' + JSON.stringify(err));
     });
   
-    ensureAdminAccount(callback);
+    ensureAdmin(callback);
   });
   
   tryConnect();

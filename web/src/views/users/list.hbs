@@ -1,0 +1,40 @@
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Users</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+            {{#each users as |user index|}}
+            <tr>
+              <td>
+                <div class="user-block">
+                  <img class="img-circle" src="/img/{{user.avatar}}.png" alt="User Image">
+                  <div class="btn-group pull-right sneaky">
+                    <a href="/users/edit?id={{user.id}}" class="btn-sm btn-default btn-flat" data-toggle="tooltip" title="" data-original-title="Edit">
+                      <i class="fa fa-edit"></i></a>
+                    <a href="/users/remove?id={{user.id}}" class="btn-sm btn-default btn-flat" data-toggle="tooltip" title="" data-original-title="Remove">
+                      <i class="fa fa-remove"></i></a>
+                  </div>
+                  <span class="username">{{user.fullname}}</span>
+                  <span class="description">{{user.jobtitle}}</span>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody></table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+          <a href="/users/add" class="btn btn-primary"><i class="fa fa-user fa-fw"></i>Add User</a>
+        </div>
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+</section>
+<!-- /.content -->

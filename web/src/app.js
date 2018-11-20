@@ -31,12 +31,12 @@ app.set('view engine', 'hbs');
 
 // setup favicon before logging so that 
 // we don't fill our logs with useless data
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
 // verbose logging
 app.use(logger(':remote-addr :remote-user [:date[iso]] :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'));
 
-// setup body-parser
+// setup body-parser (now included in Express)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -51,7 +51,7 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// static file support
+// setup serve-static (now included in Express)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // mime upload support
@@ -65,10 +65,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // passport config
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -141,7 +141,7 @@ function onListening() {
 }
 
 // Get port from environment and store in Express.
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 // Create HTTP server.
