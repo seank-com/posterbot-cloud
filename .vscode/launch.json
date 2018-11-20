@@ -9,9 +9,12 @@
       "request": "attach",
       "name": "Docker: Launch",
       "preLaunchTask": "docker-compose-up",
-      "postDebugTask": "docker-compose-down",
-      "port": 9222,
+      // This would be ideal but VS code will run this everytime nodemon restarts
+      //"postDebugTask": "docker-compose-down",
+      // This doesn't work at all
+      //"stopOnEntry": true,
       "restart": true,
+      "port": 9222,
       "timeout": 60000,
       "cwd": "${workspaceRoot}/web",
       "localRoot": "${workspaceFolder}/web",

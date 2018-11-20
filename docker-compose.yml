@@ -4,10 +4,10 @@ services:
   web:
     build: ./web
     image: pbot-web:latest
+    restart: always
     ports:
       - "80:4000"
     environment:
-      - PORT=4000
       - DEBUG=*,-web:*
     volumes:
       - ./data:/www/data

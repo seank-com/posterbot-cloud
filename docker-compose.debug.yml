@@ -4,17 +4,24 @@ services:
   web:
     build: ./web
     image: pbot-web:latest
+    restart: always
     ports:
       - "80:4000"
+      # map in debug port
       - "9222:9222"
     environment:
-      - PORT=4000
       - DEBUG=*,-web:*
       - NODE_ENV=development
     volumes:
-      - ./web/src:/www/src
       - ./data:/www/data
-    command: /www/node_modules/.bin/nodemon --watch src/ --inspect-brk=0.0.0.0:9222 --nolazy src/app.js
+      # map in src directory so nodemon can watch it
+      - ./web/src:/www/src
+    # change run command to use nodemon
+    #
+    # Break on start to aid startup debugging
+    #command: /www/node_modules/.bin/nodemon --watch src/ --inspect-brk=0.0.0.0:9222 --nolazy src/app.js
+    # Start without breaking (nice for inner loop developing)
+    command: /www/node_modules/.bin/nodemon --watch src/ --inspect=0.0.0.0:9222 --nolazy src/app.js
   mongo:
     image: mongo:4-xenial
     restart: always
