@@ -1,29 +1,21 @@
 var express = require('express');
 var passport = require('passport');
 var User = require('../models/user');
-var utils = require('./utils');
+var utils = require('../utils/utils');
 
 var router = express.Router();
-
-var context = {
-  title: 'Posterbot'
-};
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
-    context.user = utils.getUser(req);
-    context.msgs = req.flash('msgs');
-    res.render('dashboard', context);
+    res.render('dashboard', {});
   } else {
     res.redirect('/login');
   }
 });
 
 router.get('/login', function(req, res) {
-  context.user = utils.getUser(req);
-  context.msgs = req.flash('msgs');
-  res.render('login', context);
+  res.render('login', {});
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {

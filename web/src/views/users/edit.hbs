@@ -39,7 +39,7 @@
             {{#each avatars as |avatar index|}}
               <div class="avatar">
                 <input type="radio" name="avatar" value="{{avatar.value}}" id="{{avatar.value}}" {{avatar.checked}}>
-                <label for="{{avatar.value}}"><img src="/img/{{avatar.value}}.png" class="user-image">{{avatar.name}}</label>
+                <label for="{{avatar.value}}"><img src="/users/avatar/{{avatar.value}}" class="user-image">{{avatar.name}}</label>
               </div>
             {{/each}}
             </div>

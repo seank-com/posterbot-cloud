@@ -60,6 +60,39 @@ app.use(busboy());
 // flash messaging
 app.use(flash());
 
+app.use((req, res, next) => {
+  // add any flash message from other pages
+  res.locals.msgs = req.flash('msgs') || [];
+
+  // If a user is logged in then add him to the context
+  if (req.user) {
+    res.locals.user = {
+      avatar: req.user.avatar,
+      fullname: req.user.fullname,
+      jobtitle: req.user.jobtitle,
+      startmonth: req.user.createdAt.toLocaleString('en-US', { month: 'short', year: 'numeric' })
+    };
+  }
+
+  res.locals.navlinks = [];
+  [
+    {ref: '/', icon: 'fa-home', title: 'Dashboard', description: 'This is where everything begins.'},
+    {ref: '/users', icon: 'fa-users', title: 'Users', description: 'The people that can log in and make changes to the system.'}
+  ].forEach((link) => {
+    if (link.ref === req.url) {
+      link.active = 'active';
+      res.locals.title = link.title;
+      res.locals.description = link.description;
+      if (link.ref !== '/') {
+        res.locals.location = link.title;
+      }
+    }
+    res.locals.navlinks.push(link);
+  });
+
+  next();
+});
+
 // Setup Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
