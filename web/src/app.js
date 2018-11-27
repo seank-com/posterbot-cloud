@@ -12,17 +12,13 @@ var express = require('express');
 var busboy = require('connect-busboy');
 var path = require('path');
 var favicon = require('serve-favicon');
-var flash = require('connect-flash');
-var cookieSession = require('cookie-session');
 var logger = require('morgan');
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
 var database = require('./services/database');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var auth = require('./auth');
 var app = express();
 
 // view engine setup
@@ -40,26 +36,14 @@ app.use(logger(':remote-addr :remote-user [:date[iso]] :method :url HTTP/:http-v
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// cookies are used to remember who is logged in
-app.use(cookieSession({
-  name: 'session',
-  keys: ["boofoowho"],
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
-
-// configure auth
-app.use(passport.initialize());
-app.use(passport.session());
-
 // setup serve-static (now included in Express)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // mime upload support
 app.use(busboy());
 
-// flash messaging
-app.use(flash());
 
+auth.init(app);
 app.use((req, res, next) => {
   // add any flash message from other pages
   res.locals.msgs = req.flash('msgs') || [];
@@ -96,12 +80,6 @@ app.use((req, res, next) => {
 // Setup Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-// passport config
-var User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
