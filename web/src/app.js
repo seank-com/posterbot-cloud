@@ -7,7 +7,6 @@ var debugHttp = debug('http');
 var debugApp = debug('app');
 
 var http = require('http');
-var createError = require('http-errors');
 var express = require('express');
 var busboy = require('connect-busboy');
 var path = require('path');
@@ -15,15 +14,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 
 var database = require('./services/database');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var auth = require('./auth');
-var app = express();
+var routes = require('./routes');
+var views = require('./views');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+var app = express();
 
 // setup favicon before logging so that 
 // we don't fill our logs with useless data
@@ -35,70 +31,15 @@ app.use(logger(':remote-addr :remote-user [:date[iso]] :method :url HTTP/:http-v
 // setup body-parser (now included in Express)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// mime upload support
+app.use(busboy());
 
 // setup serve-static (now included in Express)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// mime upload support
-app.use(busboy());
-
-
 auth.init(app);
-app.use((req, res, next) => {
-  // add any flash message from other pages
-  res.locals.msgs = req.flash('msgs') || [];
-
-  // If a user is logged in then add him to the context
-  if (req.user) {
-    res.locals.user = {
-      avatar: req.user.avatar,
-      fullname: req.user.fullname,
-      jobtitle: req.user.jobtitle,
-      startmonth: req.user.createdAt.toLocaleString('en-US', { month: 'short', year: 'numeric' })
-    };
-  }
-
-  res.locals.navlinks = [];
-  [
-    {ref: '/', icon: 'fa-home', title: 'Dashboard', description: 'This is where everything begins.'},
-    {ref: '/users', icon: 'fa-users', title: 'Users', description: 'The people that can log in and make changes to the system.'}
-  ].forEach((link) => {
-    if (link.ref === req.url) {
-      link.active = 'active';
-      res.locals.title = link.title;
-      res.locals.description = link.description;
-      if (link.ref !== '/') {
-        res.locals.location = link.title;
-      }
-    }
-    res.locals.navlinks.push(link);
-  });
-
-  next();
-});
-
-// Setup Routes
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  debugApp('creating 404');
-  next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  var status = err.status || 500;
-  res.status(status);
-  debugApp('rendering error page for ' + status);
-  res.render('error');
-});
+views.init(app);
+routes.init(app);
 
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {

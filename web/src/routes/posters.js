@@ -1,8 +1,7 @@
 var express = require('express');
 var utils = require('../utils/utils');
-var passport = require('passport');
-var User = require('../models/user');
-var Avatar = require('../models/avatar');
+//var User = require('../models/user');
+//var Avatar = require('../models/avatar');
 
 var router = express.Router();
 
@@ -14,6 +13,7 @@ function loadContext(req, res, next) {
   } 
 
   if (req.path === '/') {
+    /*
     User.find((err, users) => {
       if (err) {
         req.flash('msgs', utils.getErrMsgs(err));
@@ -36,7 +36,11 @@ function loadContext(req, res, next) {
       });
       next();
     });
+    */
+   res.locals.posters = [];
+   next();
   } else {
+    /*
     Avatar.find({}, 'name title category', (err, avatars) => {
       if (err) {
         req.flash('msgs', utils.getErrMsgs(err));
@@ -54,35 +58,37 @@ function loadContext(req, res, next) {
         var nameB = b.category.toUpperCase();
         return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
       });
-    
+    */
       if (req.path === '/add') {
+        /*
         selected = Math.floor(Math.random() * res.locals.avatars.length);
         res.locals.avatars.forEach((avatar, idx) => {
           avatar.checked = (selected === idx) ? 'checked' : '';
         });
-        res.locals.title = 'Add User';
+        */
+        res.locals.title = 'Add Posters';
         res.locals.actiontitle = 'Create'
-        res.locals.icon = 'fa-user-plus';
-        res.locals.description = "Please provide the initial values for the profile of user's that can log in and make changes to the system.";
+        res.locals.icon = 'fa-plus';
+        res.locals.description = "Please provide the initial values for this poster.";
         res.locals.add = true;
-        res.locals.action = '/users/add';  
+        res.locals.action = '/posters/add';  
         next();
       } else {
+        /*
         function loadUser(user) {
           res.locals.avatars.forEach((avatar) => {
             avatar.checked = (user.avatar === avatar.name) ? 'checked' : '';
           });
-          res.locals.title = (user == req.user) ? 'Edit Profile' : 'Update User';
+          */
+          res.locals.title = 'Update Poster';
           res.locals.actiontitle = 'Save'
           res.locals.icon = 'fa-save';
           res.locals.description = "Make any changes you would like.";
           res.locals.add = false;
-          res.locals.action = '/users/edit';
-          res.locals.username = user.username;
-          res.locals.fullname = user.fullname;
-          res.locals.jobtitle = user.jobtitle;
-          res.locals.userid = user.id;
+          res.locals.action = '/posters/edit';
+          res.locals.posterid = 'foo';
           next();
+          /*
         }
 
         if (req.query.id) {
@@ -96,19 +102,23 @@ function loadContext(req, res, next) {
         } else {
           loadUser(res.locals.user);
         }
+        */
       }
+      /*
     });
+    */
   }
 }
 
 router.get('/', loadContext, function(req, res, next) {
-  res.render('users/list', {});  
+  res.render('posters/list', {});  
 });
 
 router.get('/add', loadContext, function(req, res) {
-  res.render('users/add-edit', {});
+  res.render('posters/add-edit', {});
 });
 
+/*
 router.post('/add', loadContext, function(req, res) {
   var user = {
     username: req.body.username,
@@ -128,11 +138,11 @@ router.post('/add', loadContext, function(req, res) {
     }
   });
 });
-
+*/
 router.get('/edit', loadContext, function(req, res) {
-  res.render('users/add-edit', {});
+  res.render('posters/add-edit', {});
 });
-
+/*
 router.post('/edit', loadContext, function(req, res) {
   var updates;
 
@@ -204,5 +214,6 @@ router.get('/avatar/:name', function(req, res) {
     res.status(403).send('You must be logged in!');
   }
 });
+*/
 
 module.exports = router;

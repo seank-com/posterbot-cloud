@@ -1,0 +1,186 @@
+<div class="row">
+  {{!-- left column --}}
+  <div class="col-md-6">
+    {{!-- form start --}}
+    <form role="form" action="{{action}}" method="post">
+      {{!-- general form elements --}}
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Theme Settings</h3>
+        </div>{{!-- /.box-header --}}
+        <div class="box-body">
+          <div class="form-group">
+            <label for="titleInput">Title</label>
+            {{#if add}}
+            <input type="text" class="form-control" id="titleInput" name="title" placeholder="Enter Title">
+            {{else}}
+            <input type="text" class="form-control" id="titleInput" name="title" placeholder="Enter Title">
+            <input type="hidden" name="themeid" value="{{themeid}}">
+            {{/if}}
+          </div>{{!-- /.form-group --}}
+          <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <input type="text" class="form-control" id="descriptionInput" name="description" placeholder="Enter Description" value="{{description}}">
+          </div>{{!-- /.form-group --}}
+          <div class="form-group">
+            <label for="tagsInput">Tags</label>
+            <input type="text" class="form-control" id="tagsInput" name="tags" placeholder="Enter Tags (seperated by spaces)" value="{{tags}}">
+          </div>{{!-- /.form-group --}}
+          <div class="form-group">
+            <label>Posters</label>
+            <div class="posters">
+            {{#each posters as |poster index|}}
+              <span class="label label-info" id="{{poster.id}}">{{poster.title}} <a class="tags btn-info" data="{{poster.id}}"><i class="fa fa-fw fa-remove"></i></a><input type="hidden" name="posters" value="{{poster.id}}"></span>
+            {{/each}}
+            </div>
+          </div>{{!-- /.form-group --}}
+        </div>{{!-- /.box-body --}}
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary"><i class="fa {{icon}} fa-fw"></i>{{actiontitle}}</button>
+        </div>{{!-- /.box-footer --}}
+      </div>{{!-- /.box --}}
+    </form>
+  </div>{{!-- /.col-md-6 --}}
+  {{!-- left column --}}
+  <div class="col-md-6">
+    {{!-- general form elements --}}
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Posters</h3>
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>{{!-- /.box-header --}}
+      <div class="box-body">
+
+              <table class="table table-bordered">
+                <tbody><tr>
+                  <th style="width: 10px"><input type="checkbox" id="all_posters"></th><th>Title</th><th>Tags</th>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe16" data-title="Sample Poster 16"></td>
+                  <td>Sample Poster 16</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe17" data-title="Sample Poster 17"></td>
+                  <td>Sample Poster 17</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe18" data-title="Sample Poster 18"></td>
+                  <td>Sample Poster 18</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe19" data-title="Sample Poster 19"></td>
+                  <td>Sample Poster 19</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe20" data-title="Sample Poster 20"></td>
+                  <td>Sample Poster 20</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe21" data-title="Sample Poster 21"></td>
+                  <td>Sample Poster 21</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe22" data-title="Sample Poster 22"></td>
+                  <td>Sample Poster 22</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe23" data-title="Sample Poster 23"></td>
+                  <td>Sample Poster 23</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe24" data-title="Sample Poster 24"></td>
+                  <td>Sample Poster 24</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe25" data-title="Sample Poster 25"></td>
+                  <td>Sample Poster 25</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe26" data-title="Sample Poster 26"></td>
+                  <td>Sample Poster 26</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe27" data-title="Sample Poster 27"></td>
+                  <td>Sample Poster 27</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe28" data-title="Sample Poster 28"></td>
+                  <td>Sample Poster 28</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe29" data-title="Sample Poster 29"></td>
+                  <td>Sample Poster 29</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe30" data-title="Sample Poster 30"></td>
+                  <td>Sample Poster 30</td>
+                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                </tr>
+              </tbody></table>
+
+      </div>{{!-- /.box-body --}}
+      <div class="box-footer clearfix">
+        <button type="button" id="add_posters" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i>Add Poster</button>
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>{{!-- /.box-footer --}}
+    </div>{{!-- /.box --}}
+  </div>{{!-- /.col-md-6 --}}
+</div>{{!-- /.row --}}
+{{#extend "script"}}
+<script>
+function wireTags () {
+  $('.tags').off('click').click(function(evt) {
+    var id = $(this).attr('data');
+    var span = $(`span[id=${id}]`);
+    span.remove();
+  });
+}
+$('#all_posters').click(function() {
+  var checked = this.checked;
+  $('input.poster').prop( "checked", checked );
+});
+$('#add_posters').click(function () {
+  var tags = $('div.posters');
+  $('input.poster').each(function () {
+    var chk = $(this);
+    if (chk.prop('checked')) {
+      var id = chk.attr('data-id'), title = chk.attr('data-title');
+      tags.append(
+        '<span class="label label-info" id="' + id + '">' + title + ' <a class="tags btn-info" data="' + id +
+        '"><i class="fa fa-fw fa-remove"></i></a><input type="hidden" name="posters" value="' + id + '"></span>\n'
+      )
+    }
+  });
+  wireTags();
+});
+wireTags();
+</script>
+{{/extend}}

@@ -1,8 +1,7 @@
 var express = require('express');
 var utils = require('../utils/utils');
-var passport = require('passport');
-var User = require('../models/user');
-var Avatar = require('../models/avatar');
+//var User = require('../models/user');
+//var Avatar = require('../models/avatar');
 
 var router = express.Router();
 
@@ -14,6 +13,7 @@ function loadContext(req, res, next) {
   } 
 
   if (req.path === '/') {
+    /*
     User.find((err, users) => {
       if (err) {
         req.flash('msgs', utils.getErrMsgs(err));
@@ -35,8 +35,11 @@ function loadContext(req, res, next) {
         };
       });
       next();
-    });
+    });*/
+    res.locals.themes = [];
+    next();
   } else {
+    /*
     Avatar.find({}, 'name title category', (err, avatars) => {
       if (err) {
         req.flash('msgs', utils.getErrMsgs(err));
@@ -54,35 +57,54 @@ function loadContext(req, res, next) {
         var nameB = b.category.toUpperCase();
         return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
       });
-    
+    */
       if (req.path === '/add') {
+        /*
         selected = Math.floor(Math.random() * res.locals.avatars.length);
         res.locals.avatars.forEach((avatar, idx) => {
           avatar.checked = (selected === idx) ? 'checked' : '';
         });
-        res.locals.title = 'Add User';
+        */
+        res.locals.posters = [
+          { id: "50341373e894ad16347efe01", title: "Sample Poster 1" },
+          { id: "50341373e894ad16347efe02", title: "Sample Poster 2" },
+          { id: "50341373e894ad16347efe03", title: "Sample Poster 3" },
+          { id: "50341373e894ad16347efe04", title: "Sample Poster 4" },
+          { id: "50341373e894ad16347efe05", title: "Sample Poster 5" },
+          { id: "50341373e894ad16347efe06", title: "Sample Poster 6" },
+          { id: "50341373e894ad16347efe07", title: "Sample Poster 7" },
+          { id: "50341373e894ad16347efe08", title: "Sample Poster 8" },
+          { id: "50341373e894ad16347efe09", title: "Sample Poster 9" },
+          { id: "50341373e894ad16347efe10", title: "Sample Poster 10" },
+          { id: "50341373e894ad16347efe11", title: "Sample Poster 11" },
+          { id: "50341373e894ad16347efe12", title: "Sample Poster 12" },
+          { id: "50341373e894ad16347efe13", title: "Sample Poster 13" },
+          { id: "50341373e894ad16347efe14", title: "Sample Poster 14" },
+          { id: "50341373e894ad16347efe15", title: "Sample Poster 15" }
+        ];
+        res.locals.title = 'Add Themes';
         res.locals.actiontitle = 'Create'
-        res.locals.icon = 'fa-user-plus';
-        res.locals.description = "Please provide the initial values for the profile of user's that can log in and make changes to the system.";
+        res.locals.icon = 'fa-plus';
+        res.locals.description = "Please provide the initial values for this theme of posters.";
         res.locals.add = true;
-        res.locals.action = '/users/add';  
+        res.locals.action = '/themes/add';  
         next();
       } else {
+        /*
         function loadUser(user) {
           res.locals.avatars.forEach((avatar) => {
             avatar.checked = (user.avatar === avatar.name) ? 'checked' : '';
           });
-          res.locals.title = (user == req.user) ? 'Edit Profile' : 'Update User';
+          */
+          res.locals.title = 'Update Theme';
           res.locals.actiontitle = 'Save'
           res.locals.icon = 'fa-save';
           res.locals.description = "Make any changes you would like.";
           res.locals.add = false;
-          res.locals.action = '/users/edit';
-          res.locals.username = user.username;
-          res.locals.fullname = user.fullname;
-          res.locals.jobtitle = user.jobtitle;
-          res.locals.userid = user.id;
+          res.locals.action = '/themes/edit';
+          res.locals.themeid = 'foo';
           next();
+          /*
         }
 
         if (req.query.id) {
@@ -96,28 +118,31 @@ function loadContext(req, res, next) {
         } else {
           loadUser(res.locals.user);
         }
+        */
       }
+      /*
     });
+    */
   }
 }
 
 router.get('/', loadContext, function(req, res, next) {
-  res.render('users/list', {});  
+  res.render('themes/list', {});  
 });
 
 router.get('/add', loadContext, function(req, res) {
-  res.render('users/add-edit', {});
+  res.render('themes/add-edit', {});
 });
 
-router.post('/add', loadContext, function(req, res) {
-  var user = {
-    username: req.body.username,
-    fullname: req.body.fullname,
-    jobtitle: req.body.jobtitle,
-    avatar: req.body.avatar,
-    password: req.body.password
-  };
 
+router.post('/add', loadContext, function(req, res) {
+  var poster = {
+    title: req.body.username,
+    description: req.body.fullname,
+    tags: req.body.jobtitle,
+    posters: req.body.posters
+  };
+  /*
   User.register( new User(user), user.password, (err, user) => {
     if (err) {
         res.locals.concat(utils.getErrMsgs(err));
@@ -127,12 +152,13 @@ router.post('/add', loadContext, function(req, res) {
       res.redirect('/users');
     }
   });
+  */
 });
 
 router.get('/edit', loadContext, function(req, res) {
-  res.render('users/add-edit', {});
+  res.render('themes/add-edit', {});
 });
-
+/*
 router.post('/edit', loadContext, function(req, res) {
   var updates;
 
@@ -204,5 +230,6 @@ router.get('/avatar/:name', function(req, res) {
     res.status(403).send('You must be logged in!');
   }
 });
+*/
 
 module.exports = router;
