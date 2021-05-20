@@ -29,8 +29,8 @@
           <div class="form-group">
             <label>Posters</label>
             <div class="posters">
-            {{#each posters as |poster index|}}
-              <span class="label label-info" id="{{poster.id}}">{{poster.title}} <a class="tags btn-info" data="{{poster.id}}"><i class="fa fa-fw fa-remove"></i></a><input type="hidden" name="posters" value="{{poster.id}}"></span>
+            {{#each tags as |tag index|}}
+              <span class="label label-info" id="{{tag.id}}">{{tag.title}} <a class="tags btn-info" data="{{tag.id}}"><i class="fa fa-fw fa-remove"></i></a><input type="hidden" name="posters" value="{{tag.id}}"></span>
             {{/each}}
             </div>
           </div>{{!-- /.form-group --}}
@@ -66,83 +66,143 @@
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe16" data-title="Sample Poster 16"></td>
                   <td>Sample Poster 16</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe17" data-title="Sample Poster 17"></td>
                   <td>Sample Poster 17</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe18" data-title="Sample Poster 18"></td>
                   <td>Sample Poster 18</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe19" data-title="Sample Poster 19"></td>
                   <td>Sample Poster 19</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe20" data-title="Sample Poster 20"></td>
                   <td>Sample Poster 20</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe21" data-title="Sample Poster 21"></td>
                   <td>Sample Poster 21</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe22" data-title="Sample Poster 22"></td>
                   <td>Sample Poster 22</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe23" data-title="Sample Poster 23"></td>
                   <td>Sample Poster 23</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe24" data-title="Sample Poster 24"></td>
                   <td>Sample Poster 24</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe25" data-title="Sample Poster 25"></td>
                   <td>Sample Poster 25</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe26" data-title="Sample Poster 26"></td>
                   <td>Sample Poster 26</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe27" data-title="Sample Poster 27"></td>
                   <td>Sample Poster 27</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe28" data-title="Sample Poster 28"></td>
                   <td>Sample Poster 28</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe29" data-title="Sample Poster 29"></td>
                   <td>Sample Poster 29</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
                 <tr>
                   <td><input type="checkbox" class='poster' data-id="50341373e894ad16347efe30" data-title="Sample Poster 30"></td>
                   <td>Sample Poster 30</td>
-                  <td><span class="badge bg-red">foo</span><span class="badge bg-red">bar</span><span class="badge bg-red">baz</span></td>
+                  <td>
+                    <span class="badge bg-red">foo</span>
+                    <span class="badge bg-red">bar</span>
+                    <span class="badge bg-red">baz</span>
+                  </td>
                 </tr>
               </tbody></table>
 
       </div>{{!-- /.box-body --}}
       <div class="box-footer clearfix">
-        <button type="button" id="add_posters" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i>Add Poster</button>
+        <button type="button" id="add_posters" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i>Add Posters</button>
         <ul class="pagination pagination-sm no-margin pull-right">
           <li><a href="#">«</a></li>
           <li><a href="#">1</a></li>

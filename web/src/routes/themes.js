@@ -65,7 +65,7 @@ function loadContext(req, res, next) {
           avatar.checked = (selected === idx) ? 'checked' : '';
         });
         */
-        res.locals.posters = [
+        res.locals.tags = [
           { id: "50341373e894ad16347efe01", title: "Sample Poster 1" },
           { id: "50341373e894ad16347efe02", title: "Sample Poster 2" },
           { id: "50341373e894ad16347efe03", title: "Sample Poster 3" },
